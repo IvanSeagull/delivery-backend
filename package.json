@@ -1,0 +1,25 @@
+{
+  "name": "delivery-backend",
+  "version": "1.0.0",
+  "description": "\"# delivery-backend\"",
+  "main": "index.js",
+  "scripts": {
+	"start":"nodemon index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IvanSeagull/delivery-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IvanSeagull/delivery-backend/issues"
+  },
+  "homepage": "https://github.com/IvanSeagull/delivery-backend#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15"
+  }
+}
