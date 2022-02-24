@@ -2,8 +2,8 @@ const {Router} = require("express");
 
 const mainRouter = new Router();
 
-//const itemRouter = require("./Routes/itemRouter")
-//const orderRouter = require("./Routes/orderRouter")
+const itemRouter = require("./Routes/itemRouter")
+const orderRouter = require("./Routes/orderRouter")
 const userRouter = require("./userRouter")
 
 
@@ -13,8 +13,8 @@ const userRouter = require("./userRouter")
 mainRouter.get("/", (req,res)=> {
 	res.status(200).json({msg: "api router"})
 })
-//mainRouter.use("/api",itemRouter)
-//mainRouter.use("/api",orderRouter)
+mainRouter.use("/items",itemRouter)
+mainRouter.use("/orders",orderRouter)
 mainRouter.use("/users",userRouter)
 
 
