@@ -27,5 +27,6 @@ userRouter.post(
   ],
   controller.login,
 );
+userRouter.get('/user_data', controller.getUserData);
 
 module.exports = userRouter;

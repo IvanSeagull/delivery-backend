@@ -74,11 +74,32 @@ class userController {
 
       // create jwt token
       const token = generateAccessToken(user.id, user.username);
-      res.status(200).json({ token });
-      //
+      return res.status(200).json({ token });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ error });
+      return res.status(500).json({ error });
+    }
+  }
+
+  async getUserData(req, res) {
+    try {
+      // get token
+      let token = req.headers.authorization;
+      // check if token exists
+      if (!token) return res.status(403).json({ msg: 'Unauthorized user' });
+      // splitting token
+      token = token.split(' ')[1];
+      // getting username from token
+      const { username } = jwt.verify(token, SECRET_JWT);
+
+      // finding user with username
+      let user = await User.findAll({ where: { username: username } });
+      user = user[0] && user[0].dataValues;
+
+      return res.status(200).json({ username: user.username, email: user.email });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error });
     }
   }
 }
