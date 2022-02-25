@@ -3,6 +3,8 @@ const db = require('./db');
 
 const app = express();
 
+app.use(express.json());
+
 const mainRouter = require('./Routes/mainRouter');
 
 app.use('/api', mainRouter);
