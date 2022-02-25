@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
-const { SECRET } = require('../config');
+const { SECRET_JWT } = require('../config');
+const { validationResult } = require('express-validator');
 
 class userController {
   async getUsers(req, res) {
@@ -8,6 +9,10 @@ class userController {
   }
   async register(req, res) {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors });
+      }
       let { username, email, password } = req.body;
       console.log(username, email, password);
 
