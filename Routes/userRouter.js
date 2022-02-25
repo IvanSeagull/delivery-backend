@@ -18,6 +18,14 @@ userRouter.post(
   ],
   controller.register,
 );
-userRouter.post('/login', controller.login);
+userRouter.post(
+  '/login',
+  [
+    check('username', 'Please enter username').notEmpty(),
+    // check('email', 'Please enter email').isEmail(),
+    check('password', 'Please enter password').notEmpty(),
+  ],
+  controller.login,
+);
 
 module.exports = userRouter;
