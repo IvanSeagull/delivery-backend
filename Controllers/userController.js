@@ -14,9 +14,6 @@ const generateAccessToken = (id, username) => {
 };
 
 class userController {
-  async getUsers(req, res) {
-    res.status(200).json({ users: 'users' });
-  }
   async register(req, res) {
     try {
       // validation
@@ -89,6 +86,7 @@ class userController {
       if (!token) return res.status(403).json({ msg: 'Unauthorized user' });
       // splitting token
       token = token.split(' ')[1];
+
       // getting username from token
       const { username } = jwt.verify(token, SECRET_JWT);
 
@@ -97,6 +95,57 @@ class userController {
       user = user[0] && user[0].dataValues;
 
       return res.status(200).json({ username: user.username, email: user.email });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error });
+    }
+  }
+
+  async updatePassword(req, res) {
+    try {
+      // get token
+      let token = req.headers.authorization;
+      // check if token exists
+      if (!token) return res.status(403).json({ msg: 'Unauthorized user' });
+      // splitting token
+      token = token.split(' ')[1];
+
+      // getting username from token
+      const { username } = jwt.verify(token, SECRET_JWT);
+
+      // validation errors
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) return res.status(400).json({ errors: errors });
+
+      // getting params from body
+      let { oldPassword, newPassword, newPassword2 } = req.body;
+
+      //check if new passwords same
+      if (newPassword !== newPassword2)
+        return res.status(500).json({ msg: 'Passwords should be same' });
+
+      // find user by username
+      let user = await User.findAll({ where: { username: username } });
+      user = user[0] ? user[0].dataValues : false;
+      if (!user) return res.status(404).json({ msg: 'User not found' });
+
+      // compare oldPassword with user.password
+      const validPassword = bcrypt.compareSync(oldPassword, user.password);
+      if (!validPassword) return res.status(400).json({ msg: `Wrong password` });
+
+      // hash Password
+      const hashedPassword = bcrypt.hashSync(newPassword, 7);
+
+      // update user.password
+      const newUser = await User.update(
+        { password: hashedPassword },
+        {
+          where: {
+            username: username,
+          },
+        },
+      );
+      return res.status(200).json({ msg: 'Successfully updated password ' });
     } catch (error) {
       console.log(error);
       return res.status(500).json({ error });

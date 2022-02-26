@@ -8,7 +8,7 @@ const userRouter = new Router();
 //   res.status(200).json();
 // });
 
-userRouter.get('/', controller.getUsers);
+// userRouter.get('/', controller.getUsers);
 userRouter.post(
   '/register',
   [
@@ -28,5 +28,15 @@ userRouter.post(
   controller.login,
 );
 userRouter.get('/user_data', controller.getUserData);
+
+userRouter.post(
+  '/update_password',
+  [
+    check('oldPassword', 'Please enter old password').notEmpty(),
+    check('newPassword', 'New password should be between 4 and 10').isLength(4, 10),
+    check('newPassword2', 'Please repeat new password').isLength(4, 10),
+  ],
+  controller.updatePassword,
+);
 
 module.exports = userRouter;
