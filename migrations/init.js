@@ -1,6 +1,7 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
+    // users
     await queryInterface.createTable('users', {
       id: {
         allowNull: false,
@@ -32,12 +33,43 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable('items', {
+    await queryInterface.createTable('categories', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
+      },
+      title: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+    });
+
+    // products in shop
+    await queryInterface.createTable('products', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      categoryId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'categories',
+          key: 'id',
+        },
       },
       title: {
         type: Sequelize.STRING,
@@ -85,8 +117,12 @@ module.exports = {
           key: 'id',
         },
       },
+      orderProducts: {
+        type: Sequelize.JSONB,
+        allowNull: false,
+      },
 
-      price: {
+      totalPrice: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
