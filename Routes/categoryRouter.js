@@ -22,4 +22,10 @@ categoryRouter.post(
   controller.updateCategory,
 );
 
+categoryRouter.post(
+  '/delete',
+  check('title', 'Please enter title').notEmpty(),
+  controller.deleteCategory,
+);
+
 module.exports = categoryRouter;

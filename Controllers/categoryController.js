@@ -55,6 +55,27 @@ class categoryController {
       return res.status(500).json({ error });
     }
   }
+
+  async deleteCategory(req, res) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) return res.status(400).json({ errors: errors });
+      const { title } = req.body;
+
+      const deletedCategory = await Category.destroy({
+        where: {
+          title: title.toLowerCase(),
+        },
+      });
+
+      console.log(deletedCategory);
+      if (deletedCategory == '1')
+        return res.status(200).json({ msg: 'Deleted category successfully' });
+      else return res.status(400).json({ error: 'No such category' });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  }
 }
 
 module.exports = new categoryController();
