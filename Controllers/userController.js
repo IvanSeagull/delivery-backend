@@ -62,8 +62,11 @@ class userController {
 
       // find user with that username
       let user = await User.findAll({ where: { username: username } });
-      user = user[0].dataValues;
       console.log(user);
+
+      // if user is found => user : null
+      user = user[0] ? user[0].dataValues : null;
+      if (!user) return res.status(400).json({ errors: 'No such user' });
 
       // check password
       const validPassword = bcrypt.compareSync(password, user.password);
