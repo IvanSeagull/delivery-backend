@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
-const Item = require('./Item');
+const Item = require('./Product');
 
 const Order = db.define('order', {
   userId: {
@@ -11,8 +11,12 @@ const Order = db.define('order', {
       key: 'id',
     },
   },
+  orderProducts: {
+    type: Sequelize.JSONB,
+    allowNull: false,
+  },
 
-  price: {
+  totalPrice: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },

@@ -2,6 +2,14 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const Product = db.define('product', {
+  categoryId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'categories',
+      key: 'id',
+    },
+  },
   title: {
     type: Sequelize.STRING,
     allowNull: false,
