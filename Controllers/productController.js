@@ -30,17 +30,51 @@ class productController {
     }
   }
   async updateProduct(req, res) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({ errors: errors });
-    let id = req.params.id;
-    console.log(id);
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) return res.status(400).json({ errors: errors });
+      let id = req.params.id;
+      // console.log(id);
+      let { title, description, price, amount, discount, categoryId } = req.body;
+
+      const updatedProduct = await Product.update(
+        {
+          title,
+          description,
+          price,
+          amount,
+          discount,
+          categoryId,
+        },
+        {
+          where: {
+            id,
+          },
+        },
+      );
+      if (updatedProduct.toString() == '1') {
+        return res.status(200).json({ msg: 'Updated Product successfully' });
+      } else return res.status(404).json({ error: 'Product not found' });
     } catch (error) {
       return res.status(500).json({ error });
     }
   }
   async deleteProduct(req, res) {
-    console.log(123);
+    try {
+      let id = req.params.id;
+
+      const deletedProduct = await Product.destroy({
+        where: {
+          id,
+        },
+      });
+
+      if (deletedProduct == '1')
+        return res.status(200).json({ msg: 'Deleted product successfully' });
+      else return res.status(400).json({ error: 'No such product' });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
   }
 }
 

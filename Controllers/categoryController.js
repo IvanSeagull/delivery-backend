@@ -37,7 +37,6 @@ class categoryController {
       const errors = validationResult(req);
       if (!errors.isEmpty()) return res.status(400).json({ errors: errors });
 
-      // const { oldTitle, newTitle } = req.body;
       const { newTitle } = req.body;
       const { id } = req.params;
 
@@ -52,7 +51,7 @@ class categoryController {
       console.log(updatedCategory.toString());
       if (updatedCategory.toString() == '1') {
         return res.status(200).json({ msg: 'Updated category successfully' });
-      } else return res.status(404).json({ error: 'Category with that title not found' });
+      } else return res.status(404).json({ error: 'Category not found' });
     } catch (error) {
       return res.status(500).json({ error });
     }
@@ -69,13 +68,6 @@ class categoryController {
           id,
         },
       });
-      // const { title } = req.body;
-
-      // const deletedCategory = await Category.destroy({
-      //   where: {
-      //     title: title.toLowerCase(),
-      //   },
-      // });
 
       console.log(deletedCategory);
       if (deletedCategory == '1')

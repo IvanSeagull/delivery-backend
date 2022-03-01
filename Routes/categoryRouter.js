@@ -28,18 +28,4 @@ categoryRouter.delete(
   controller.deleteCategory,
 );
 
-// categoryRouter.put(
-//   '/update',
-//   check('oldTitle', 'Please enter old title').notEmpty(),
-//   check('newTitle', 'Please enter new title').notEmpty(),
-
-//   controller.updateCategory,
-// );
-
-// categoryRouter.delete(
-//   '/delete',
-//   check('title', 'Please enter title').notEmpty(),
-//   controller.deleteCategory,
-// );
-
 module.exports = categoryRouter;

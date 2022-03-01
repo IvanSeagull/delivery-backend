@@ -21,8 +21,4 @@ productRouter.post(
 productRouter.put('/update/:id', check('id', 'Enter id').isNumeric(), controller.updateProduct);
 productRouter.delete('/delete/:id', controller.deleteProduct);
 
-// productRouter.get('/get-products', (req, res) => {
-//   res.status(200).json({ Product: 'Product' });
-// });
-
 module.exports = productRouter;
