@@ -14,18 +14,32 @@ categoryRouter.post(
   check('title', 'Please enter title').notEmpty(),
   controller.addCategory,
 );
-categoryRouter.post(
-  '/update',
-  check('oldTitle', 'Please enter old title').notEmpty(),
+categoryRouter.put(
+  '/update/:id',
+  check('id', 'Please enter id').notEmpty().isNumeric(),
   check('newTitle', 'Please enter new title').notEmpty(),
 
   controller.updateCategory,
 );
 
-categoryRouter.post(
-  '/delete',
-  check('title', 'Please enter title').notEmpty(),
+categoryRouter.delete(
+  '/delete/:id',
+  check('id', 'Please enter id').notEmpty().isNumeric(),
   controller.deleteCategory,
 );
+
+// categoryRouter.put(
+//   '/update',
+//   check('oldTitle', 'Please enter old title').notEmpty(),
+//   check('newTitle', 'Please enter new title').notEmpty(),
+
+//   controller.updateCategory,
+// );
+
+// categoryRouter.delete(
+//   '/delete',
+//   check('title', 'Please enter title').notEmpty(),
+//   controller.deleteCategory,
+// );
 
 module.exports = categoryRouter;

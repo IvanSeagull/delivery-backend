@@ -37,13 +37,15 @@ class categoryController {
       const errors = validationResult(req);
       if (!errors.isEmpty()) return res.status(400).json({ errors: errors });
 
-      const { oldTitle, newTitle } = req.body;
+      // const { oldTitle, newTitle } = req.body;
+      const { newTitle } = req.body;
+      const { id } = req.params;
 
       const updatedCategory = await Category.update(
         { title: newTitle.toLowerCase() },
         {
           where: {
-            title: oldTitle.toLowerCase(),
+            id,
           },
         },
       );
@@ -60,13 +62,20 @@ class categoryController {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) return res.status(400).json({ errors: errors });
-      const { title } = req.body;
+      const id = req.params.id;
 
       const deletedCategory = await Category.destroy({
         where: {
-          title: title.toLowerCase(),
+          id,
         },
       });
+      // const { title } = req.body;
+
+      // const deletedCategory = await Category.destroy({
+      //   where: {
+      //     title: title.toLowerCase(),
+      //   },
+      // });
 
       console.log(deletedCategory);
       if (deletedCategory == '1')
