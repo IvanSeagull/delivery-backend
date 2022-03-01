@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const { validationResult } = require('express-validator');
 
 class productController {
   async getProducts(req, res) {
@@ -14,21 +15,29 @@ class productController {
       const errors = validationResult(req);
       if (!errors.isEmpty()) return res.status(400).json({ errors: errors });
 
-      const { title, description, price, amount, discount } = req.body;
+      const { title, description, price, amount, discount, categoryId } = req.body;
       const newProduct = await Product.create({
         title: title.toLowerCase(),
         description,
         price,
         amount,
         discount,
+        categoryId,
       });
-      return res.status(200).json({ msg: 'Successfully added new category' });
+      return res.status(200).json({ msg: 'Successfully added new product' });
     } catch (error) {
       return res.status(500).json({ error });
     }
   }
   async updateProduct(req, res) {
-    console.log(123);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors });
+    let id = req.params.id;
+    console.log(id);
+    try {
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
   }
   async deleteProduct(req, res) {
     console.log(123);

@@ -12,9 +12,16 @@ const categoryRouter = require('./categoryRouter');
 mainRouter.get('/', (req, res) => {
   res.status(200).json({ msg: 'api router' });
 });
-mainRouter.use('/products', authMiddleware, productRouter);
-mainRouter.use('/orders', authMiddleware, orderRouter);
-mainRouter.use('/categories', authMiddleware, categoryRouter);
+
+// For Prod
+// mainRouter.use('/products', authMiddleware, productRouter);
+// mainRouter.use('/orders', authMiddleware, orderRouter);
+// mainRouter.use('/categories', authMiddleware, categoryRouter);
+
+// For DEV
+mainRouter.use('/products', productRouter);
+mainRouter.use('/orders', orderRouter);
+mainRouter.use('/categories', categoryRouter);
 
 mainRouter.use('/users', userRouter);
 
