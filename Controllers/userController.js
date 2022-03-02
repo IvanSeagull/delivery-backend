@@ -45,6 +45,8 @@ class userController {
         password,
       });
 
+      console.log(newUser);
+
       return res.status(200).redirect('/');
     } catch (error) {
       console.log(error);

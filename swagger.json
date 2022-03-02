@@ -29,7 +29,7 @@
       }
     ],
     "paths": {
-        "/register": {
+        "/api/users/register": {
             "post": {
                 "tags": ["Users"],
                 "requestBody": {
@@ -75,7 +75,7 @@
             }
           },
 
-          "/login": {
+          "/api/users/login": {
             "post": {
                 "tags": ["Users"],
                 "requestBody": {
@@ -117,7 +117,7 @@
                 }
             }
           },
-          "/update_password": {
+          "/api/users/update_password": {
             "post": {
                 "tags": ["Users"],
                 "requestBody": {
