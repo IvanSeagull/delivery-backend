@@ -45,9 +45,10 @@ class userController {
         password,
       });
 
-      console.log(newUser);
+      const token = generateAccessToken(newUser.dataValues.id, newUser.dataValues.username);
 
-      return res.status(200).redirect('/');
+      // return res.status(200).redirect('/');
+      return res.status(200).json({ token });
     } catch (error) {
       console.log(error);
       return res.status(500).json({ error });
