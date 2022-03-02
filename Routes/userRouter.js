@@ -10,65 +10,6 @@ const userRouter = new Router();
 
 // userRouter.get('/', controller.getUsers);
 
-/**
- * @swagger
- * tags:
- *  name: Users
- *  description: user-controller
- *
- */
-
-/**
- * @swagger
- * /register:
- *  post:
- *    tags: [Users]
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            properties:
- *              username:
- *                type: string
- *              email:
- *                type: string
- *              password:
- *                type: string
- *    responses:
- *      "200":
- *        description: "Successfully registered"
- *      "400":
- *        description: "Error validation"
- *      "500":
- *        description: "Some error"
- */
-
-/**
- * @swagger
- * /login:
- *  post:
- *    tags: [Users]
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            properties:
- *              username:
- *                type: string
- *              password:
- *                type: string
- *    responses:
- *      "200":
- *        description: "Successfully registered"
- *      "400":
- *        description: "Error validation"
- *      "500":
- *        description: "Some error"
- */
 userRouter.post(
   '/register',
   [

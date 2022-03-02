@@ -1,0 +1,153 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "version": "1.0.0", 
+      "title": "Delivery backend",
+      "description": "simple delivery backend",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "servers": [
+        {
+          "url": "http://localhost:5000"
+        }
+      ],
+    "apis": ["./Routes/*.js", "./index.js"],
+
+    "tags": [
+      {
+        "name": "Users",
+        "description": "user-controller"
+      },
+      {
+        "name": "Products",
+        "description": "product-controller"
+      }
+    ],
+    "paths": {
+        "/register": {
+            "post": {
+                "tags": ["Users"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Register new user",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json":{
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "jwtToken"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+          },
+
+          "/login": {
+            "post": {
+                "tags": ["Users"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Login",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json":{
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "jwtToken"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+          },
+          "/update_password": {
+            "post": {
+                "tags": ["Users"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "oldPassword": {
+                                        "type": "string"
+                                    },
+                                    "newPassword": {
+                                        "type": "string"
+                                    },
+                                    "newPassword2": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Update password by jwt token",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+          }
+        }
+  }
