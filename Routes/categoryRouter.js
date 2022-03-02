@@ -14,6 +14,7 @@ categoryRouter.post(
   check('title', 'Please enter title').notEmpty(),
   controller.addCategory,
 );
+
 categoryRouter.put(
   '/update/:id',
   check('id', 'Please enter id').notEmpty().isNumeric(),
@@ -27,5 +28,6 @@ categoryRouter.delete(
   check('id', 'Please enter id').notEmpty().isNumeric(),
   controller.deleteCategory,
 );
+categoryRouter.get('/getProducts/:id', controller.getProducts);
 
 module.exports = categoryRouter;

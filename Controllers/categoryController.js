@@ -1,4 +1,6 @@
 const Category = require('../models/Category');
+const Product = require('../models/Product');
+
 const { validationResult } = require('express-validator');
 
 class categoryController {
@@ -73,6 +75,17 @@ class categoryController {
       if (deletedCategory == '1')
         return res.status(200).json({ msg: 'Deleted category successfully' });
       else return res.status(400).json({ error: 'No such category' });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  }
+  async getProducts(req, res) {
+    try {
+      let id = req.params.id;
+      let products = await Product.findAll({
+        where: { categoryId: id },
+      });
+      res.status(200).json({ products });
     } catch (error) {
       return res.status(500).json({ error });
     }
