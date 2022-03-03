@@ -24,8 +24,16 @@
         "description": "user-controller"
       },
       {
+        "name": "Categories",
+        "description": "category-controller"
+      },
+      {
         "name": "Products",
         "description": "product-controller"
+      },
+      {
+        "name": "Orders",
+        "description": "order-controller"
       }
     ],
     "paths": {
@@ -145,6 +153,125 @@
                 "responses": {
                     "200": {
                         "description": "OK"
+                    }
+                }
+            }
+          },
+          "/api/products/": {
+            "get": {
+                "tags": ["Products"],
+                
+                "summary": "Get all products",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+          },
+          "/api/products/add": {
+            "post": {
+                "tags": ["Products"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "integer"
+                                    },
+                                    "amount": {
+                                        "type": "integer"
+                                    },
+                                    "discount": {
+                                        "type": "integer"
+                                    },
+                                    "categoryId": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Add product to db",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+          },
+          "/api/products/update/:id": {
+            "put": {
+                "tags": ["Products"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Product id",
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "summary": "Update product by id",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+          },
+          "/api/products/delete/:id": {
+            "delete": {
+                "tags": ["Products"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Product id",
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "summary": "Delete product from db",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    },
+                    "500": {
+                        "description": "Server error"
                     }
                 }
             }
