@@ -157,6 +157,145 @@
                 }
             }
           },
+          "/api/categories/": {
+            "get": {
+                "tags": ["Categories"],
+                
+                "summary": "Get all categories",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+          },
+          "/api/categories/{id}": {
+            "get": {
+                "tags": ["Categories"],
+                
+                "summary": "Get category by id",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+          },
+          "/api/categories/add": {
+            "post": {
+                "tags": ["Categories"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Add category to db",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+          },
+
+          "/api/categories/update/{id}": {
+            "put": {
+                "tags": ["Categories"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Product id",
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "newTitle": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Update category by id",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+          },
+
+          "/api/categories/delete/{id}": {
+            "delete": {
+                "tags": ["Categories"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Product id",
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "summary": "Delete category by id",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+          },
+
+
+
+          
           "/api/products/": {
             "get": {
                 "tags": ["Products"],
@@ -246,7 +385,7 @@
                 }
             }
           },
-          "/api/products/update/:id": {
+          "/api/products/update/{id}": {
             "put": {
                 "tags": ["Products"],
                 "parameters": [
@@ -260,6 +399,36 @@
                         }
                     }
                 ],
+                "requestBody": {
+                    "description":"Specify the parameter to be changed",
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "integer"
+                                    },
+                                    "amount": {
+                                        "type": "integer"
+                                    },
+                                    "discount": {
+                                        "type": "integer"
+                                    },
+                                    "categoryId": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 "summary": "Update product by id",
                 "responses": {
                     "200": {
@@ -274,7 +443,7 @@
                 }
             }
           },
-          "/api/products/delete/:id": {
+          "/api/products/delete/{id}": {
             "delete": {
                 "tags": ["Products"],
                 "parameters": [
