@@ -2,7 +2,7 @@ const Product = require('../models/Product');
 const { validationResult } = require('express-validator');
 
 class productController {
-  async getProducts(req, res) {
+  async getAllProducts(req, res) {
     try {
       let products = await Product.findAll();
       res.status(200).json({ products });
@@ -10,6 +10,21 @@ class productController {
       return res.status(500).json({ error });
     }
   }
+
+  async getProduct(req, res) {
+    try {
+      let id = req.params.id;
+      let product = await Product.findAll({
+        where: {
+          id,
+        },
+      });
+      res.status(200).json({ product });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  }
+
   async addProducts(req, res) {
     try {
       const errors = validationResult(req);

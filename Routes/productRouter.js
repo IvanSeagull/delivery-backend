@@ -4,7 +4,9 @@ const { check } = require('express-validator');
 const controller = require('../Controllers/productController');
 const productRouter = new Router();
 
-productRouter.get('/', controller.getProducts);
+productRouter.get('/', controller.getAllProducts);
+
+productRouter.get('/:id', controller.getProduct);
 
 productRouter.post(
   '/add',

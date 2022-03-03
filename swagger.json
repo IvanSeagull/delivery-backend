@@ -173,6 +173,32 @@
                 }
             }
           },
+          "/api/products/{id}": {
+            "get": {
+                "tags": ["Products"],
+                "summary": "Get product by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Product id",
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+          },
           "/api/products/add": {
             "post": {
                 "tags": ["Products"],
