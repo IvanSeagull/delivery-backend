@@ -5,10 +5,12 @@ const controller = require('../Controllers/orderController');
 
 const orderRouter = new Router();
 
-orderRouter.get('/', controller.getOrders);
+orderRouter.get('/', controller.getAllOrders);
 
-orderRouter.get('/get-orders', (req, res) => {
-  res.status(200).json({ orders: 'orders' });
-});
+orderRouter.get('/:id', controller.getOrder);
+
+// orderRouter.get('/get-orders', (req, res) => {
+//   res.status(200).json({ orders: 'orders' });
+// });
 
 module.exports = orderRouter;
