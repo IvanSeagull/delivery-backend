@@ -175,7 +175,6 @@
           "/api/categories/{id}": {
             "get": {
                 "tags": ["Categories"],
-                
                 "summary": "Get category by id",
                 "responses": {
                     "200": {
