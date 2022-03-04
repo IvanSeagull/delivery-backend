@@ -157,6 +157,25 @@
                 }
             }
           },
+
+          "/api/users/orders": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Get all orders from 1 user",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Unauthorized user"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+          },
+
           "/api/categories/": {
             "get": {
                 "tags": ["Categories"],
