@@ -496,6 +496,32 @@
                     }
                 }
             }
+          },
+          "/api/orders/{id}": {
+            "get": {
+                "tags": ["Orders"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Product id",
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "summary": "Get order by id",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
           }
         }
   }
