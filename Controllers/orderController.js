@@ -2,9 +2,9 @@ const Order = require('../models/Order');
 const Product = require('../models/Product');
 
 // get a list of actual products
-const getProductsData = async (order) => {
+const getProductsData = async (productList) => {
   let productsId = [];
-  order.dataValues.orderProducts.forEach((el, index) => {
+  productList.forEach((el) => {
     productsId.push(el.productId);
   });
 
@@ -15,11 +15,19 @@ const getProductsData = async (order) => {
   });
 
   // create new order object
-  order.dataValues.orderProducts = products.map((pr, index) => {
-    return { product: pr, amount: order.dataValues.orderProducts[index].amount };
+  newProductsList = products.map((pr, index) => {
+    return { product: pr.dataValues, amount: productList[index].amount };
   });
+  return newProductsList;
+};
 
-  return order;
+const calculateTotalPrice = async (productList) => {
+  let totalPrice = 0;
+  const actualProducts = await getProductsData(productList);
+  actualProducts.forEach((pr) => {
+    totalPrice += pr.product.price * pr.amount;
+  });
+  return totalPrice;
 };
 
 class orderController {
@@ -37,9 +45,9 @@ class orderController {
       let order = await Order.findAll({ where: { id } });
       order = order[0];
 
-      let newOrder = await getProductsData(order);
+      order.dataValues.orderProducts = await getProductsData(order.dataValues.orderProducts);
 
-      res.status(200).json({ order: newOrder });
+      res.status(200).json({ order });
     } catch (error) {
       return res.status(500).json({ error });
     }
@@ -47,7 +55,9 @@ class orderController {
 
   async createOrder(req, res) {
     try {
-      let { userId, orderProducts, totalPrice } = req.body;
+      let { userId, orderProducts } = req.body;
+
+      let totalPrice = await calculateTotalPrice(orderProducts);
 
       const newOrder = await Order.create({
         userId,
@@ -55,7 +65,7 @@ class orderController {
         totalPrice,
         status: 'Processing',
       });
-      //   return res.status(200).json({ msg: 'Successfully added new category' });
+
       return res.status(200).json({ newOrder });
     } catch (error) {
       return res.status(500).json({ error });
