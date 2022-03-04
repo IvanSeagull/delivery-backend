@@ -18,4 +18,10 @@ orderRouter.post(
   controller.createOrder,
 );
 
+orderRouter.put(
+  '/:id',
+  check('status', 'Please enter a status').notEmpty(),
+  controller.changeStatus,
+);
+
 module.exports = orderRouter;

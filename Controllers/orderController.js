@@ -71,6 +71,28 @@ class orderController {
       return res.status(500).json({ error });
     }
   }
+
+  async changeStatus(req, res) {
+    try {
+      let { status } = req.body;
+      let id = req.params.id;
+
+      if (status !== 'Processing' && status !== 'Canceled' && status !== 'Delivered')
+        return res.status(400).json({ error });
+
+      const updatedOrder = await Order.update(
+        { status },
+        {
+          where: {
+            id,
+          },
+        },
+      );
+      return res.status(200).json({ msg: 'Updated orders status successfully' });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  }
 }
 
 module.exports = new orderController();
