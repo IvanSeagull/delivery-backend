@@ -521,7 +521,90 @@
                         "description": "Server error"
                     }
                 }
+            },
+            "put": {
+                "tags": ["Orders"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Product id",
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "summary": "Update status of order",
+                "requestBody": {
+                    "required": true,
+                    "description":"Specify the status to be changed",
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "status": {
+                                        "type": "string"
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+          },
+          "/api/orders/create": {
+            "post": {
+                "tags": ["Orders"],
+                "summary": "Create new order",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "userId": {
+                                        "type": "string"
+                                    },
+                                    "orderProducts": {
+                                        "type": "object",
+                                        "properties": {
+                                            "productId": {
+                                                "type": "string"
+                                            },
+                                            "amount": {
+                                                "type": "integer"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
             }
           }
+         
         }
   }
