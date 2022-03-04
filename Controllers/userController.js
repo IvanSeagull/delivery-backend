@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const Order = require('../models/Order');
+
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
@@ -154,6 +156,24 @@ class userController {
       return res.status(200).json({ msg: 'Successfully updated password ' });
     } catch (error) {
       console.log(error);
+      return res.status(500).json({ error });
+    }
+  }
+
+  async getAllOrders(req, res) {
+    try {
+      let token = req.headers.authorization;
+      if (!token) return res.status(403).json({ msg: 'Unauthorized user' });
+
+      token = token.split(' ')[1];
+
+      // getting username from token
+      const { username, id } = jwt.verify(token, SECRET_JWT);
+      console.log(username, id);
+
+      let orders = await Order.findAll({ where: { userId: id } });
+      res.status(200).json({ orders });
+    } catch (error) {
       return res.status(500).json({ error });
     }
   }

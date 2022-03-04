@@ -40,4 +40,6 @@ userRouter.post(
   controller.updatePassword,
 );
 
+userRouter.get('/orders', controller.getAllOrders);
+
 module.exports = userRouter;
