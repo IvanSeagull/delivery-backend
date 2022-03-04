@@ -4,7 +4,7 @@ const Product = require('../models/Product');
 const { validationResult } = require('express-validator');
 
 class categoryController {
-  async getCategories(req, res) {
+  async getAllCategories(req, res) {
     try {
       let categories = await Category.findAll();
       res.status(200).json({ categories });
@@ -12,6 +12,16 @@ class categoryController {
       return res.status(500).json({ error });
     }
   }
+  async getCategory(req, res) {
+    try {
+      let id = req.params.id;
+      let categories = await Category.findAll({ where: { id } });
+      res.status(200).json({ categories });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  }
+
   async addCategory(req, res) {
     try {
       // validation

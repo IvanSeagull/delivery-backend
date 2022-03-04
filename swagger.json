@@ -176,6 +176,17 @@
             "get": {
                 "tags": ["Categories"],
                 "summary": "Get category by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Product id",
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -464,6 +475,22 @@
                     "400": {
                         "description": "Validation error"
                     },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+          },
+          "/api/orders/": {
+            "get": {
+                "tags": ["Orders"],
+                
+                "summary": "Get all orders",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+
                     "500": {
                         "description": "Server error"
                     }

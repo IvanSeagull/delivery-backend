@@ -8,7 +8,9 @@ const categoryRouter = new Router();
 //   res.status(200).json();
 // });
 
-categoryRouter.get('/', controller.getCategories);
+categoryRouter.get('/', controller.getAllCategories);
+categoryRouter.get('/:id', controller.getCategory);
+
 categoryRouter.post(
   '/add',
   check('title', 'Please enter title').notEmpty(),
